@@ -764,3 +764,42 @@ class ParityEthJsonRpc(EthJsonRpc):
         '''
         block = validate_block(block)
         return self._call('trace_block', [block])
+
+    def personal_signerEnabled(self):
+        print("coucou")
+
+    def personal_listAccounts(self):
+		pass
+
+    def personal_newAccount(self):
+		pass
+
+    def personal_newAccountFromPhrase(self):
+		pass
+
+    def personal_newAccountFromWallet(self):
+		pass
+
+    def personal_unlockAccount(self):
+		pass
+
+    def personal_signAndSendTransaction(self):
+		pass
+
+    def personal_setAccountName(self):
+		pass
+
+    def personal_setAccountMeta(self):
+		pass
+
+    def personal_accountsInfo(self):
+		pass
+
+    def personal_requestsToConfirm(self):
+		pass
+
+    def personal_confirmRequest(self):
+		pass
+
+    def personal_rejectRequest(self):
+		pass
