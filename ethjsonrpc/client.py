@@ -3,6 +3,7 @@ import warnings
 
 import requests
 from requests.exceptions import ConnectionError as RequestsConnectionError
+from past.builtins import basestring
 from ethereum import utils
 from ethereum.abi import encode_abi, decode_abi
 
@@ -766,40 +767,40 @@ class ParityEthJsonRpc(EthJsonRpc):
         return self._call('trace_block', [block])
 
     def personal_signerEnabled(self):
-        print("coucou")
+        print("lel")
 
     def personal_listAccounts(self):
-		pass
+        pass
 
     def personal_newAccount(self):
-		pass
+        pass
 
     def personal_newAccountFromPhrase(self):
-		pass
+        pass
 
     def personal_newAccountFromWallet(self):
-		pass
+        pass
 
     def personal_unlockAccount(self):
-		pass
+        pass
 
     def personal_signAndSendTransaction(self):
-		pass
+        pass
 
     def personal_setAccountName(self):
-		pass
+        pass
 
     def personal_setAccountMeta(self):
-		pass
+        pass
 
     def personal_accountsInfo(self):
-		pass
+        pass
 
     def personal_requestsToConfirm(self):
-		pass
+        pass
 
     def personal_confirmRequest(self):
-		pass
+        pass
 
     def personal_rejectRequest(self):
-		pass
+        pass
