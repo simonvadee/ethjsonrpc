@@ -16,3 +16,7 @@ class BadJsonError(EthJsonRpcError):
 
 class BadResponseError(EthJsonRpcError):
     pass
+
+
+class NotImplementedError(EthJsonRpcError):
+	pass
