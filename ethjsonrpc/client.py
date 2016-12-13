@@ -2,6 +2,7 @@ import json
 import warnings
 
 import requests
+from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError as RequestsConnectionError
 from past.builtins import basestring
 from ethereum import utils
@@ -17,9 +18,14 @@ GETH_DEFAULT_RPC_PORT = 8545
 ETH_DEFAULT_RPC_PORT = 8545
 PARITY_DEFAULT_RPC_PORT = 8545
 PYETHAPP_DEFAULT_RPC_PORT = 4000
+MAX_RETRIES = 3
+JSON_MEDIA_TYPE = 'application/json'
 
 
 class EthJsonRpc(object):
+    '''
+    Ethereum JSON-RPC client class
+    '''
 
     DEFAULT_GAS_PER_TX = 90000
     DEFAULT_GAS_PRICE = 50 * 10**9  # 50 gwei
@@ -28,6 +34,8 @@ class EthJsonRpc(object):
         self.host = host
         self.port = port
         self.tls = tls
+        self.session = requests.Session()
+        self.session.mount(self.host, HTTPAdapter(max_retries=MAX_RETRIES))
 
     def _call(self, method, params=None, _id=1):
 
@@ -42,9 +50,9 @@ class EthJsonRpc(object):
         if self.tls:
             scheme += 's'
         url = '{}://{}:{}'.format(scheme, self.host, self.port)
-        headers = {'Content-Type': 'application/json'}
+        headers = {'Content-Type': JSON_MEDIA_TYPE}
         try:
-            r = requests.post(url, headers=headers, data=json.dumps(data))
+            r = self.session.post(url, headers=headers, data=json.dumps(data))
         except RequestsConnectionError:
             raise ConnectionError
         if r.status_code / 100 != 2:
