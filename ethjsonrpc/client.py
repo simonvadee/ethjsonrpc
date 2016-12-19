@@ -1,6 +1,5 @@
 import json
 import warnings
-
 import requests
 from requests.adapters import HTTPAdapter
 from requests.exceptions import ConnectionError as RequestsConnectionError
@@ -115,9 +114,11 @@ class EthJsonRpc(object):
         transaction (useful for reading data)
         '''
         data = self._encode_function(sig, args)
-        data_hex = encode_hex(data)
+        data_hex = '0x' + encode_hex(data).decode('utf-8')
+
         response = self.eth_call(to_address=address, data=data_hex)
-        return decode_abi(result_types, response[2:].decode('hex'))
+        result_bytes = decode_abi(result_types, decode_hex(response[2:]))
+        return [result.decode('utf-8') if type(result) is bytes else result for result in result_bytes]
 
     def call_with_transaction(self, from_, address, sig, args, gas=None, gas_price=None, value=None):
         '''
