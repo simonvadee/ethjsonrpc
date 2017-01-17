@@ -130,7 +130,7 @@ class EthJsonRpc(object):
         data = self._encode_function(sig, args)
         data_hex = '0x' + encode_hex(data).decode('utf-8')
 
-        gas = gas or self.eth_estimateGas(from_address=from_, to_address=address, data=data_hex, value=value) * 1.2
+        gas = gas or int(self.eth_estimateGas(from_address=from_, to_address=address, data=data_hex, value=value) * 1.2)
         if gas is not None and gas > self.GAS_LIMIT:
             gas = self.GAS_LIMIT
         print("GAS ===== ", gas)
