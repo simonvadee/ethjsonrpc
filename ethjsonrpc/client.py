@@ -402,7 +402,7 @@ class EthJsonRpc(object):
         if gas_price is not None:
             obj['gasPrice'] = clean_hex(gas_price)
         if value is not None:
-            obj['value'] = value
+            obj['value'] = clean_hex(value)
         if data is not None:
             obj['data'] = data
         return hex_to_dec(self._call('eth_estimateGas', [obj, default_block]))
