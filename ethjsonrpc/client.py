@@ -28,6 +28,7 @@ class EthJsonRpc(object):
 
     DEFAULT_GAS_PER_TX = 90000
     DEFAULT_GAS_PRICE = 50 * 10**9  # 50 gwei
+    GAS_LIMIT = self.DEFAULT_GAS_PER_TX * 30
 
     def __init__(self, host='localhost', port=GETH_DEFAULT_RPC_PORT, tls=False):
         self.host = host
@@ -129,6 +130,8 @@ class EthJsonRpc(object):
         data = self._encode_function(sig, args)
         data_hex = '0x' + encode_hex(data).decode('utf-8')
         gas = gas or self.eth_estimateGas(from_address=from_, to_address=address, data=data_hex, value=value)
+        if gas is not None and gas > self.GAS_LIMIT:
+            gas = self.GAS_LIMIT
         print("GAS ===== ", gas)
         gas_price = gas_price or self.DEFAULT_GAS_PRICE
         return self.eth_sendTransaction(from_address=from_, to_address=address, data=data_hex, gas=(gas or self.DEFAULT_GAS_PER_TX),
