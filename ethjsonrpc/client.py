@@ -115,8 +115,7 @@ class EthJsonRpc(object):
         transaction (useful for reading data)
         '''
         data = self._encode_function(sig, args)
-        data_hex = '0x' + encode_hex(data).decode('utf-8')
-
+        data_hex = '0x' + encode_hex(data)
         response = self.eth_call(to_address=address, data=data_hex)
         result_bytes = decode_abi(result_types, decode_hex(response[2:]))
         return [result.decode('utf-8') if type(result) is bytes else result for result in result_bytes]
@@ -128,7 +127,7 @@ class EthJsonRpc(object):
         '''
 
         data = self._encode_function(sig, args)
-        data_hex = '0x' + encode_hex(data).decode('utf-8')
+        data_hex = '0x' + encode_hex(data)
 
         gas = gas or int(self.eth_estimateGas(from_address=from_, to_address=address, data=data_hex, value=value) * 1.2)
         if gas is not None and gas > self.GAS_LIMIT:
@@ -160,7 +159,7 @@ class EthJsonRpc(object):
         try:
             int(data, 16)
         except ValueError:
-            data = encode_hex(str(data)).decode('utf-8')
+            data = encode_hex(str(data))
         return self._call('web3_sha3', [data])
 
     def net_version(self):
