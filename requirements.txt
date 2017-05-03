@@ -1,4 +1,4 @@
 ethereum>=1.5.2
 requests==2.11.1
 future==0.15.2
-rlp>=0.5.0
+rlp==0.5.1

@@ -3,6 +3,9 @@ try:
 except ImportError:
     from distutils.core import setup
 
+with open('requirements.txt') as f:
+    reqs = f.read().splitlines()
+    
 setup(
     name='ethjsonrpc',
     version='0.3.1',
@@ -21,10 +24,5 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
     ],
-    install_requires=[
-        'ethereum>=1.5.2',
-        'requests==2.11.1',
-        'future==0.15.2',
-        'rlp==0.4.6'
-    ],
+    install_requires=reqs,
 )
