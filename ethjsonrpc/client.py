@@ -118,7 +118,7 @@ class EthJsonRpc(object):
         data_hex = '0x' + encode_hex(data)
         response = self.eth_call(to_address=address, data=data_hex)
         result_bytes = decode_abi(result_types, decode_hex(response[2:]))
-        return [result.decode('utf-8') if type(result) is bytes else result for result in result_bytes]
+        return [result if (type(result) is bytes) else result for result in result_bytes]
 
     def call_with_transaction(self, from_, address, sig, args, gas=None, gas_price=None, value=None):
         '''
