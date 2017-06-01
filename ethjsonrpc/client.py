@@ -117,11 +117,7 @@ class EthJsonRpc(object):
         data = self._encode_function(sig, args)
         data_hex = '0x' + encode_hex(data)
         response = self.eth_call(to_address=address, data=data_hex)
-        try:
-            result_bytes = decode_abi(result_types, decode_hex(response[2:]))
-        except:
-            print("------------>", response)
-            result_bytes = decode_abi(result_types, decode_hex(response))
+        result_bytes = decode_abi(result_types, decode_hex(response[2:]))
         try:
             return [result.decode('utf-8') if (type(result) is bytes) else result for result in result_bytes]
         except:
