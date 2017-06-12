@@ -78,6 +78,7 @@ class EthJsonRpc(object):
 
         types = signature[signature.find('(') + 1: signature.find(')')].split(',')
         encoded_params = encode_abi(types, param_values)
+        print('-----------------', encoded_params)
         return utils.zpad(utils.encode_int(prefix), 4) + encoded_params
 
 ################################################################################
